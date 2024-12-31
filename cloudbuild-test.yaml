@@ -1,0 +1,12 @@
+steps:
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["echo", "Build type: ${_TYPE}"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["echo", "Environment: ${_ENV}"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["echo", "Submitted by: ${_SUBMITTED_BY}"]
+  # Simulate some work
+  - name: "ubuntu"
+    args: ["sleep", "30"]
+
+timeout: 1800s
