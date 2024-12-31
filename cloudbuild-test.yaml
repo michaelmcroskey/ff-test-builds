@@ -1,12 +1,29 @@
 steps:
-  - name: "gcr.io/cloud-builders/gcloud"
-    args: ["echo", "Build type: ${_TYPE}"]
-  - name: "gcr.io/cloud-builders/gcloud"
-    args: ["echo", "Environment: ${_ENV}"]
-  - name: "gcr.io/cloud-builders/gcloud"
-    args: ["echo", "Submitted by: ${_SUBMITTED_BY}"]
-  # Simulate some work
-  - name: "ubuntu"
-    args: ["sleep", "30"]
+  # Use ubuntu for echo commands
+  - name: 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Build type: ${_TYPE}"
+        echo "Environment: ${_ENV}"
+        echo "Submitted by: ${_SUBMITTED_BY}"
+
+  # Simulate work
+  - name: 'ubuntu'
+    args: ['sleep', '30']
+
+  # Add a final status message
+  - name: 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'echo "Build completed successfully!"'
 
 timeout: 1800s
+
+# Define substitutions that should have default values
+substitutions:
+  _TYPE: 'default'
+  _ENV: 'test'
+  _SUBMITTED_BY: 'unknown'
